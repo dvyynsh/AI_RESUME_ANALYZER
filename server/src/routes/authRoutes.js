@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-// importing the function that knows how to register user
-const { registerUser } = require("../controllers/authController");
+const { registerUser, loginUser  } = require("../controllers/authController");  // importing
 
 
 
 router.post("/register", registerUser);
-// means if someone sends /register call regiterUser
+router.post("/login", loginUser);
 
 module.exports = router;

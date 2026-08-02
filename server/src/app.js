@@ -6,6 +6,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 
+//router
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
