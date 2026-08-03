@@ -24,15 +24,14 @@ const userSchema = new mongoose.Schema({
 });
 
 // Runs automatically before saving a user to MongoDB
-userSchema.pre("save", async function (next) {
+// Runs automatically before saving a user to MongoDB
+userSchema.pre("save", async function () {
 
     // Skip hashing if password hasn't changed
-    if (!this.isModified("password")) return next();
+    if (!this.isModified("password")) return;
 
     // Convert plain password into a secure hashed password
     this.password = await bcrypt.hash(this.password, 10);
-
-    next();
 });
 
 // Custom method used during login to compare entered password
