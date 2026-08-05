@@ -1,3 +1,6 @@
+const extractTextFromPDF = require("../utils/pdfParser");
+
+
 // Handles resume upload requests
 const uploadResume = async (req, res) => {
 
@@ -8,9 +11,12 @@ const uploadResume = async (req, res) => {
         });
     }
 
+    // Read the uploaded PDF and extract its text
+    const resumeText = await extractTextFromPDF(req.file.path);
+
     res.status(200).json({
         message: "Resume uploaded successfully",
-        file: req.file,
+        text: resumeText,
     });
 };
 
