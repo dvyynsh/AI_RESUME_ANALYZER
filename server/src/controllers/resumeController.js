@@ -1,5 +1,5 @@
 const extractTextFromPDF = require("../utils/pdfParser");
-
+const analyzeResume = require("../services/aiService");
 
 // Handles resume upload requests
 const uploadResume = async (req, res) => {
@@ -11,12 +11,16 @@ const uploadResume = async (req, res) => {
         });
     }
 
-    // Read the uploaded PDF and extract its text
+    // Step 1: Extract text from the uploaded PDF
     const resumeText = await extractTextFromPDF(req.file.path);
 
+    // Step 2: Send the text to Gemini AI
+    const analysis = await analyzeResume(resumeText);
+
+    // Step 3: Return AI analysis
     res.status(200).json({
-        message: "Resume uploaded successfully",
-        text: resumeText,
+        message: "Resume Analysis successfully",
+        analysis,
     });
 };
 
