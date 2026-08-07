@@ -19,13 +19,44 @@ const analyzeResume = async (resumeText) => {
             {
                 role: "user",
                 content: `
-Analyze this resume and provide:
+You are an expert ATS (Applicant Tracking System) Resume Analyzer.
 
-1. Resume Score (out of 100)
-2. Strengths
-3. Weaknesses
-4. Missing Skills
-5. Suggestions for Improvement
+Analyze the resume carefully.
+
+Respond ONLY with valid JSON.
+
+Do not write markdown.
+Do not write explanations.
+Do not use \`\`\`.
+
+Return this exact structure:
+
+{
+  "score": <integer between 0 and 100>,
+  "strengths": [
+    "...",
+    "..."
+  ],
+  "weaknesses": [
+    "...",
+    "..."
+  ],
+  "missingSkills": [
+    "...",
+    "..."
+  ],
+  "suggestions": [
+    "...",
+    "..."
+  ]
+}
+
+Rules:
+- score must be an integer from 0 to 100.
+- strengths must contain at least 3 points.
+- weaknesses must contain at least 3 points.
+- missingSkills must contain at least 3 points.
+- suggestions must contain at least 3 points.
 
 Resume:
 

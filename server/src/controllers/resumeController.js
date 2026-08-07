@@ -17,10 +17,20 @@ const uploadResume = async (req, res) => {
     // Step 2: Send the text to Gemini AI
     const analysis = await analyzeResume(resumeText);
 
+    let parsedAnalysis;
+
+    try {
+        parsedAnalysis = JSON.parse(analysis);
+    } catch (error) {
+        return res.status(500).json({
+            message: "AI returned an invalid response.",
+        });
+    }
+
     // Step 3: Return AI analysis
     res.status(200).json({
         message: "Resume Analysis successfully",
-        analysis,
+        analysis: parsedAnalysis,
     });
 };
 
